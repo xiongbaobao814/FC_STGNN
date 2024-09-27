@@ -9,9 +9,9 @@ import math
 import os
 import random
 
-import models.Model as Model
+import Model
 from args import args
-from data_loader.data_loader_RUL import CMPDataIter_graph
+from dadata_loader_RUL import CMPDataIter_graph
 
 class Train():
     def __init__(self, args):

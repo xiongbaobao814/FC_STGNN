@@ -4,15 +4,14 @@ import torch.nn.functional as F
 import numpy as np
 import time
 import argparse
-import Model
+import models.Model
 from args import args
-from data_loader_HAR import data_generator
-from dealdata_FCMSGNN.data_loader_ETT import data_provider
+from data_loader.data_loader_HAR import data_generator
 
 
 class Train():
     def __init__(self, args):
-        self.train = data_provider('/home/shilin/code/all_datasets/ETT-small/', args=args)
+        self.train, self.valid, self.test = data_generator('../data/HAR/', args=args)
         self.args = args
         self.net = Model.FC_STGNN_HAR(args.patch_size,args.conv_out, args.lstmhidden_dim, args.lstmout_dim,
                                         args.conv_kernel,args.hidden_dim,args.time_denpen_len, args.num_sensor, 
@@ -98,7 +97,7 @@ class Train():
 
 # 对测试数据集进行预测，计算预测准确性
     def Prediction(self):
-        self.net.eval() # 设置模型为评估模式
+        self.net.eval()                 # 设置模型为评估模式
         prediction_ = []
         real_ = []
         for data, label in self.test:
@@ -123,7 +122,7 @@ class Train():
 
 if __name__ == '__main__': 
     args = args()
-    def args_config_ETT(args):
+    def args_config_HAR(args):
         args.epoch = 2
         args.num_sensor = 9
         args.window_sample = 128
@@ -148,10 +147,9 @@ if __name__ == '__main__':
         args.hidden_dim = 16
         args.lstmhidden_dim = 48
 
-        args.flag = 'train'
         args.n_class = 6
         return args
 
-    args = args_config_ETT(args)
+    args = args_config_HAR(args)
     train = Train(args)
     train.Train_model()

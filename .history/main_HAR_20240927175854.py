@@ -4,7 +4,21 @@ import torch.nn.functional as F
 import numpy as np
 import time
 import argparse
-import models.Model as Model
+import models.Model as class MODELNAME(models.Model):
+    """Model definition for MODELNAME."""
+
+    # TODO: Define fields here
+
+    class Meta:
+        """Meta definition for MODELNAME."""
+
+        verbose_name = 'MODELNAME'
+        verbose_name_plural = 'MODELNAMEs'
+
+    def __str__(self):
+        """Unicode representation of MODELNAME."""
+        pass
+
 from args import args
 from data_loader.data_loader_HAR import data_generator
 

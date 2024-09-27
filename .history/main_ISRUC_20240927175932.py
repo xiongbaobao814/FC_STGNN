@@ -24,6 +24,7 @@ class Train():
 
     def data_preparation(self, data, label):
         for i in range(len(data)):
+
             print(data[i].shape)
 
 

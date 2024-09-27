@@ -18,12 +18,14 @@ class Train():
         self.train, self.valid, self.test = data_generator('../data/ISRUC/', args)
         self.args = args
         self.net = Model.FC_STGNN_SSC(args.patch_size,args.conv_out, args.lstmhidden_dim, args.lstmout_dim,args.conv_kernel,args.hidden_dim,args.time_denpen_len, args.num_sensor, args.num_windows,args.moving_window,args.stride, args.decay, args.pool_choice, args.n_class, args.dropout)
+
         self.net = self.net.cuda() if tr.cuda.is_available() else self.net
         self.loss_function = nn.CrossEntropyLoss()
         self.optim = optim.Adam(self.net.parameters())
 
     def data_preparation(self, data, label):
         for i in range(len(data)):
+
             print(data[i].shape)
 
 

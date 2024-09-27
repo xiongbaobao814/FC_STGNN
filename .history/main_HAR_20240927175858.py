@@ -4,7 +4,7 @@ import torch.nn.functional as F
 import numpy as np
 import time
 import argparse
-import models.Model as Model
+import models.Model as Mo
 from args import args
 from data_loader.data_loader_HAR import data_generator
 

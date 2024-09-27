@@ -9,7 +9,7 @@ import math
 import os
 import random
 
-import models.Model as Model
+import modelsModel
 from args import args
 from data_loader.data_loader_RUL import CMPDataIter_graph
 
