@@ -133,6 +133,8 @@ class FC_STGNN_RUL(nn.Module):
         return features
 
 
+
+
 #### Best for SSC
 class FC_STGNN_SSC(nn.Module):
     def __init__(self, indim_fea, Conv_out, lstmhidden_dim, lstmout_dim, conv_kernel,hidden_dim, 
