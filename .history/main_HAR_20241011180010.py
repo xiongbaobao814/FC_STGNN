@@ -41,9 +41,48 @@ class Train():
         epoch = self.args.epoch
         cross_accu = 0
         test_accu_ = []
+<<<<<<< Tabnine <<<<<<<
+def forward(self, X):#+
+    """#+
+    Performs the forward pass of the FC_STGNN model.#+
+#+
+    Parameters:#+
+    X (torch.Tensor): Input tensor of shape (batch_size, time_length, num_nodes, feature_dimension).#+
+#+
+    Returns:#+
+    torch.Tensor: Output tensor of shape (batch_size, num_classes) representing the model's predictions.#+
+    """#+
+    bs, tlen, num_node, dimension = X.size()                        # 100, 2, 9, 64#+
+#+
+    ### Graph Generation#+
+    A_input = torch.reshape(X, [bs*tlen*num_node, dimension, 1])    # [1800, 64, 1]#+
+    A_input_ = self.nonlin_map(A_input)                             # [1800, 18, 10]#+
+    A_input_ = torch.reshape(A_input_, [bs*tlen*num_node,-1])       # [1800, 180]#+
+    A_input_ = self.nonlin_map2(A_input_)                           # [1800, 32]#+
+    A_input_ = torch.reshape(A_input_, [bs, tlen,num_node,-1])      # [100, 2, 9, 32]#+
+#+
+    ## positional encoding before mapping starting#+
+    X_ = torch.reshape(A_input_, [bs, tlen, num_node, -1])          # [100, 2, 9, 32]#+
+    X_ = torch.transpose(X_, 1, 2)#+
+    X_ = torch.reshape(X_, [bs*num_node, tlen, -1])                 # [900, 2, 32]#+
+    X_ = self.positional_encoding(X_)#+
+    X_ = torch.reshape(X_, [bs, num_node, tlen, -1])                # [100, 9, 2, 32]#+
+    X_ = torch.transpose(X_, 1, 2)#+
+    A_input_ = X_                                                   # [100, 2, 9, 32]#+
+#+
+    ## positional encoding before mapping ending#+
+    MPNN_output1 = self.MPNN1(A_input_)                     # [100, 1, 9, 16]#+
+    MPNN_output2 = self.MPNN2(A_input_)                     # [100, 1, 9, 16]#+
+#+
+    features1 = torch.reshape(MPNN_output1, [bs, -1])       # [100, 144]#+
+    features2 = torch.reshape(MPNN_output2, [bs, -1])       # [100, 144]#+
+    features = torch.cat([features1,features2], -1)         # [100, 288]#+
+    #+
+    features = self.fc(features)                            # [100, 6]#+
+    return features#+
+>>>>>>> Tabnine >>>>>>># {"conversationId":"6c8a4509-cf35-450d-903c-acc0af9e0cff","source":"instruct"}
         prediction_ = []
         real_ = []
-        
         for i in range(epoch):
             time0 = time.time()
             loss = self.Train_batch()   # 返回整个训练集的累计损失值
@@ -60,8 +99,8 @@ class Train():
                     test_accu_.append(0)
                     prediction_.append(0)
                     real_.append(0)
-            print("i", i)
-        print("epoch: ", epoch)
+            print(i)
+        print(epoch)
         print('test_accu_:', test_accu_)
         print('prediction_:', prediction_)
         print('real_:', real_)

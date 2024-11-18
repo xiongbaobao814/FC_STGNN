@@ -60,7 +60,7 @@ class Train():
                     test_accu_.append(0)
                     prediction_.append(0)
                     real_.append(0)
-            print("i", i)
+            print(i)
         print("epoch: ", epoch)
         print('test_accu_:', test_accu_)
         print('prediction_:', prediction_)

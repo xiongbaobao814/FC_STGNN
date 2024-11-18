@@ -41,9 +41,9 @@ class Train():
         epoch = self.args.epoch
         cross_accu = 0
         test_accu_ = []
+
         prediction_ = []
         real_ = []
-        
         for i in range(epoch):
             time0 = time.time()
             loss = self.Train_batch()   # 返回整个训练集的累计损失值
@@ -60,8 +60,8 @@ class Train():
                     test_accu_.append(0)
                     prediction_.append(0)
                     real_.append(0)
-            print("i", i)
-        print("epoch: ", epoch)
+            print(i)
+        print(epoch)
         print('test_accu_:', test_accu_)
         print('prediction_:', prediction_)
         print('real_:', real_)
